@@ -12,8 +12,8 @@ function getConfig($key,$default=null){
         return $default;
     }
 
-    $config = new Atova\Eshoper\Foundation\Config($keyArr[0]);
-    return $config->get($keyArr[1]) ?? $default;
+    $config = Atova\Eshoper\Foundation\Config::getInstance();
+    return $config->get($keyArr, $default);
 }
 
 function view($view,$data=[]){

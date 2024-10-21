@@ -1,3 +1,3 @@
 <?php
 define("PROJECT_ROOT",dirname(dirname(dirname(__FILE__))));
-define("URLROOT","http://localhost/t_project_wdb11/");
+define("URLROOT","http://localhost/training_projects/eshoper-b11");
