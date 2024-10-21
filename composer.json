@@ -1,0 +1,22 @@
+{
+    "name": "atova/eshoper",
+    "description": "E-Commerce System in OOP PHP",
+    "type": "project",
+    "license": "ATOVA-WB 11",
+    "autoload": {
+        "psr-4": {
+            "Atova\\Eshoper\\": "_core/",
+            "App\\": "app/"
+        },
+        "files": [
+            "_core/Support/helper.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Mohammad Mehedi Hasan",
+            "email": "mehedifci907@gmail.com"
+        }
+    ],
+    "require": {}
+}
