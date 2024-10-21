@@ -65,3 +65,13 @@ function toCamelCase($string) {
 
     return $str;
 }
+
+
+function session(){
+    return  new \Atova\Eshoper\Foundation\Session();
+}
+
+
+function redirect($url=null){
+    header('Location:'.url($url));
+}

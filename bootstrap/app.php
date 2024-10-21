@@ -5,7 +5,7 @@
 */
 
 use Atova\Eshoper\Foundation\Database;
-use Atova\Eshoper\Foundation\Model;
+use Atova\Eshoper\Foundation\Migration;
 use Atova\Eshoper\Foundation\Session;
 
 /**
@@ -31,10 +31,16 @@ require PROJECT_ROOT."/vendor/autoload.php";
 $session = new Session();
 
 /**
- * Load Database
+ * Test DB Connection
 */
 
-$db = new Database();
+(new Database())->testDbConnection();
+
+/**
+ * Initialize all database tables
+ */
+
+ (new Migration())->runMigrations();
 
 
 /**
