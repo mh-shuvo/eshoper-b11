@@ -105,4 +105,13 @@ class Session {
         $this->remove($key);
         return $message;
     }
+
+
+    public function setError($key, $message) {
+        $this->set($key."_error", $message);
+    }
+    public function getError($key) {
+        $message = $this->get($key."_error");
+        $this->remove($key."_error");
+    }
 }
