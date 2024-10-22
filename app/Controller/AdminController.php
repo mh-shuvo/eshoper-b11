@@ -4,14 +4,14 @@ use App\Controller\BaseController;
 class AdminController extends BaseController {
 
     public function index(){
-        if(!isset($_SESSION['has_loggedin']) || !$_SESSION['has_loggedin']){
-            throwException("Un Authorized login");
+        if(!hasAdminLogin()){
+            throwException(sprintf("Un Authorized access. <a href='%s'>Login</a>",url("login")));
         }
         return view("admin.index");
     }
 
     public function logout(){
-     unset($_SESSION['has_loggedin']);
+     session()->remove(ADMIN_AUTH_KEY);
      $redirectUrl = url("login");
     header("Location:$redirectUrl");   
     }

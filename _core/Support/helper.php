@@ -75,3 +75,10 @@ function session(){
 function redirect($url=null){
     header('Location:'.url($url));
 }
+
+function hasAdminLogin(){
+    if(session()->has(ADMIN_AUTH_KEY)){
+        return true;
+    }
+    return false;
+}

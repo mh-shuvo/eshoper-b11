@@ -10,6 +10,8 @@
 <body>
     <h1>Welcome to E-Shoper Admin Panel</h1>
 
+    <?=session()->getFlash('login_success')?>
+
 
     <form action="<?=url("admin/logout")?>" method="post">
         <button class="btn btn-primary btn-sm" type="submit">Logout</button>
