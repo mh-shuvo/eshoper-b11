@@ -1,6 +1,7 @@
 <?php
 namespace Atova\Eshoper\Foundation;
 use App\Controller\WelcomeController;
+use App\Interfaces\MiddlewareInterface;
 class Controller {
 
     protected $currentController = WelcomeController::class;
@@ -24,7 +25,18 @@ class Controller {
         }
 
       // Instantiate controller class
-      $this->currentController = new $this->currentController;
+      $this->currentController = new $this->currentController();
+
+      foreach ($this->currentController->getMiddlewares() as $key => $middleware) {
+          $middlewareObj = new $middleware();
+          if($middlewareObj instanceof MiddlewareInterface){
+            $middlewareObj->handle();
+          }
+          else{
+            throwException(sprintf("The [%s] Should be instance of [%s]",$middleware,MiddlewareInterface::class));
+          }
+
+      }
 
       // Check for second part of url
       if(isset($url[1])){

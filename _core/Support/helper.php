@@ -82,3 +82,14 @@ function hasAdminLogin(){
     }
     return false;
 }
+
+function getCurrentLoggedInAdminInfo($key="*"){
+    if(hasAdminLogin()){
+        $user = session()->get(ADMIN_AUTH_KEY);
+        if($key != "*"){
+            return $user[$key] ?? "N/A";
+        }
+        return $user;
+    }
+    return False;
+}
