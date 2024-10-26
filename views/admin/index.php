@@ -2,12 +2,17 @@
 include_components("includes.admin_header");
 ?>
 
-<div class="row">
-    <div class="cols-sm-12">
-        <h3>Dashboard</h3>
-        <h4 class="text-success"><?=session()->getFlash('login_success')?></h4>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <div class="row">
+        <!-- Mian content of the dashboard -->
     </div>
 </div>
+
 
 <?php
     include_components("includes.admin_footer");

@@ -8,11 +8,10 @@ class CategoryController extends BaseController{
 
     public function index()
     {
-        $category = new Category();
-        $data = $category->getAll();
-        if(!is_array($data)){
-            throwException($data);
-        }
+        $data["scripts"] = [
+            asset("admin_assets/js/category.js"),
+        ];
+        
         return view("admin.category",$data);
     }
 
@@ -22,14 +21,46 @@ class CategoryController extends BaseController{
 
     public function delete($id){
         $category = new Category();
+        
         $hasDeleted = $category->delete($id);
+        $responseCode = 200;
+        $response = [
+            "status"=> "success",
+            "message"=> "Successfully Deleted",
+        ];
 
         if(is_string($hasDeleted)){
-            throwException($hasDeleted);
+            $response["status"] = "failed";
+            $response["message"] = $hasDeleted;
+            $responseCode = 500;
         }
 
-        session()->flash("category_success","Successfully Deleted");
-        return redirect("category");
+        http_response_code($responseCode);
+
+        echo json_encode($response);
+    }
+
+
+    public function fetchCategories(){
+        $page = $_GET['page'] ?? 1;
+        $limit = $_GET['limit'] ?? 10; // Default items per page
+        $offset = ($page - 1) * $limit;
+        $category = new Category();
+    
+        // Fetch categories with limit and offset for pagination
+        $categories = $category->getPaginatedCategories($limit, $offset);
+        $totalCategories = $category->getTotalCategoriesCount();
+    
+        echo json_encode([
+            "status" => "success",
+            "data" => $categories,
+            "pagination" => [
+                "total" => $totalCategories,
+                "current_page" => $page,
+                "per_page" => $limit,
+                "total_pages" => ceil($totalCategories / $limit)
+            ]
+        ]);
     }
 
 

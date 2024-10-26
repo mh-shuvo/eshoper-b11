@@ -2,71 +2,38 @@
 <?php
 include_components("includes.admin_header");
 ?>
-
-<div class="row">
-    <div class="col-sm-8">
-        <h3>Category</h3>
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-10">
+            <h1 class="mt-4">Category</h1>
+        </div>
+        <div class="col-2 text-right">
+                <a href="<?=url("category/create")?>" class="btn btn-primary btn-md mt-4">Add new Category</a>
+        </div>
     </div>
-    <div class="col-sm-4">
-        <a href="<?=url("category/create")?>" class="btn btn-primary btn-sm">Add new Category</a>
-    </div>
-</div>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Dashboard</li>
+        <li class="breadcrumb-item active">Category</li>
+    </ol>
 
-<div class="alert alert-success <?php echo !session()->has("category_success") ? "d-none":""; ?>">
-    <?=session()->getFlash("category_success")?>
-</div>
-
-<div class="alert alert-danger <?php echo !session()->has("category_error") ? "d-none":""; ?>">
-    <?=session()->getFlash("category_error")?>
-</div>
-
-<div class="row">
-    <div class="col-sm-12">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <th>#</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Action</th>
-            </thead>
-            
-            <tbody>
-                <?php
-                    foreach($data as $key => $item){
-                ?>
-                <tr>
-                    <td>
-                        <?=$key+1?>
-                    </td>
-                    <td>
-                        <img src="<?=$item->image?>" style="height:100px;width:100px;" alt="">
-                    </td>
-                    <td>
-                        <p>
-                            <?=$item->name?> 
-                            <?php
-                                if($item->is_featured){
-                                    echo '<span class="badge text-bg-success">Featured</span>';
-                                }
-                            ?>
-                        </p>
-                    </td>
-                    <td><?=$item->status?></td>
-                    <td>
-                        <a href="<?=url("category/edit/{$item->id}")?>" class="btn btn-success btn-sm">Edit</a>
-                        <a href="<?=url("category/delete/{$item->id}")?>" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-
-                <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </thead>
+                
+                <tbody></tbody>
+            </table>
+            <div id="pagination" class="pagination-container mt-3"></div>
+        </div>
     </div>
 </div>
 
 <?php
-    include_components("includes.admin_footer");
+    include_components("includes.admin_footer",$data);
 ?>
