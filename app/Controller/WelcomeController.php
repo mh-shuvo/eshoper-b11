@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
-class WelcomeController{
+use App\Controller\BaseController;
+class WelcomeController extends BaseController{
     public function index(){
         return view("web.index");
     }
