@@ -28,11 +28,10 @@
             }
         </script>
         <?php 
-           if(isset($data['scripts'])){
-
-           foreach($data['scripts'] as $k=>$js){
+           if(isset($staticFiles)){
+           foreach($staticFiles as $k=> $js){
         ?>
-        <script src="<?=$js?>"></script>
+            <script src="<?=$js?>"></script>
 
         <?php
            }

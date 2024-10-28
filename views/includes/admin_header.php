@@ -11,6 +11,16 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<?=asset("admin_assets/css/styles.css")?>" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <?php 
+           if(isset($staticFiles)){
+           foreach($staticFiles as $k=> $css){
+        ?>
+            <link href="<?=$css?>" rel="stylesheet" />
+
+        <?php
+           }
+        }
+        ?>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

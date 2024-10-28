@@ -35,5 +35,5 @@ include_components("includes.admin_header");
 </div>
 
 <?php
-    include_components("includes.admin_footer",$data);
+    include_components("includes.admin_footer",$data['scripts']??[]);
 ?>

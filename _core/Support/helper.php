@@ -40,7 +40,7 @@ function asset($file){
     return $absoluteFilePath;
 }
 
-function include_components($path,$data=[],$ext="php"){
+function include_components($path,$staticFiles=[],$ext="php"){
     $view = PROJECT_ROOT.'/views/'.str_replace(".","/",$path).".".$ext;
     include_once $view;
     if(file_exists($view)){
