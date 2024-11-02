@@ -61,9 +61,13 @@ function renderCategories(categories,limit,current_page) {
     tableBody.innerHTML = ""; // Clear existing data
     categories.forEach((category, index) => {
         const row = document.createElement("tr");
+        var image = category.image;
+        if(!image.startsWith("http")){
+            image = `${BASEPATH}/${image}`
+        }
         row.innerHTML = `
             <td>${currentRowNumber}</td>
-            <td><img src="${BASEPATH}/${category.image}" style="height:100px;width:100px;" alt=""></td>
+            <td><img src="${image}" style="height:100px;width:100px;" alt=""></td>
             <td>
                 <p>${category.name} 
                     ${category.is_featured ? '<span class="badge text-bg-success">Featured</span>' : ""}
