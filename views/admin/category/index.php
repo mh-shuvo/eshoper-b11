@@ -16,6 +16,8 @@ include_components("includes.admin_header");
         <li class="breadcrumb-item active">Category</li>
     </ol>
 
+    <span class="text-success"><?=session()->getFlash('success')?></span>
+
     <div class="row">
         <div class="col-sm-12">
             <table class="table table-striped table-bordered">

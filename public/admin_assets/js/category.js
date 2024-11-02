@@ -44,7 +44,7 @@ function fetchCategories(page = 1) {
             if (request.status === 200) {
                 const response = JSON.parse(request.responseText);
                 console.log(response)
-                renderCategories(response.data);
+                renderCategories(response.data,limit,page);
                 renderPagination(response.pagination);
             } else {
                 console.error("Failed to fetch categories");
@@ -55,14 +55,15 @@ function fetchCategories(page = 1) {
 }
 
 fetchCategories();
-function renderCategories(categories) {
+function renderCategories(categories,limit,current_page) {
     const tableBody = document.querySelector("tbody");
+    var currentRowNumber = (limit * (current_page -1 )) + 1
     tableBody.innerHTML = ""; // Clear existing data
     categories.forEach((category, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${index + 1}</td>
-            <td><img src="${category.image}" style="height:100px;width:100px;" alt=""></td>
+            <td>${currentRowNumber}</td>
+            <td><img src="${BASEPATH}/${category.image}" style="height:100px;width:100px;" alt=""></td>
             <td>
                 <p>${category.name} 
                     ${category.is_featured ? '<span class="badge text-bg-success">Featured</span>' : ""}
@@ -75,6 +76,7 @@ function renderCategories(categories) {
             </td>
         `;
         tableBody.appendChild(row);
+        currentRowNumber++;
     });
 
     addDeleteEventListeners();

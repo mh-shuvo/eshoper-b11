@@ -62,4 +62,19 @@ class Category extends Model{
 
         return $result ? (int) $result->count : 0; // Return total count as integer
     }
+
+    public function store($data){
+        $sql = "INSERT INTO `{$this->table}` (`name`,`image`,`status`,`is_featured`) VALUES (:name,:image,:status,:is_featured)";
+        $this->query($sql);
+        $this->bind("name",$data['name'],PDO::PARAM_STR);
+        $this->bind("image",$data['image'],PDO::PARAM_STR);
+        $this->bind("status",$data['status'],PDO::PARAM_STR);
+        $this->bind("is_featured",$data['is_featured'],PDO::PARAM_STR);
+
+        $this->execute();
+        if($this->getErrors()){
+            return ''. $this->getErrors();
+        }
+        return true;
+    }
 }
