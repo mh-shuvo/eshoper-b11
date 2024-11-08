@@ -77,4 +77,24 @@ class Category extends Model{
         }
         return true;
     }
+    public function update($data){
+        return true;
+    }
+
+    public function getCategoryById($id){
+        $sql = "SELECT * FROM `{$this->table}` WHERE `id` =:id";
+        $this->query($sql);
+
+        $this->bind("id",$id,PDO::PARAM_INT);
+
+        if ($this->getErrors()) {
+            return "Something went wrong. The Error is: " . $this->getErrors();
+        }
+
+        // Fetching a single result as an object with the 'results' method (not an array)
+        $result = $this->results(false);
+
+        return $result ? $result : "No Category Found.";
+
+    }
 }

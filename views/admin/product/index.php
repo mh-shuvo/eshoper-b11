@@ -4,20 +4,19 @@ include_components("includes.admin_header");
 ?>
 <div class="container-fluid px-4">
     <div class="row">
-        <div class="col-10">
-            <h1 class="mt-4">Category</h1>
+        <div class="col-9">
+            <h1 class="mt-4">Product Management</h1>
         </div>
-        <div class="col-2 text-right">
-                <a href="<?=url("category/create")?>" class="btn btn-primary btn-md mt-4">Add new Category</a>
+        <div class="col-3 text-right">
+                <a href="<?=url("category/create")?>" class="btn btn-primary btn-md mt-4">Upload new product</a>
         </div>
     </div>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">Dashboard</li>
-        <li class="breadcrumb-item active">Category</li>
+        <li class="breadcrumb-item active">Product</li>
     </ol>
 
     <span class="text-success"><?=session()->getFlash('success')?></span>
-    <span class="text-danger"><?=session()->getFlash('error')?></span>
 
     <div class="row">
         <div class="col-sm-12">
