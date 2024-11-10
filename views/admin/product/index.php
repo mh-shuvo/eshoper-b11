@@ -8,7 +8,7 @@ include_components("includes.admin_header");
             <h1 class="mt-4">Product Management</h1>
         </div>
         <div class="col-3 text-right">
-                <a href="<?=url("category/create")?>" class="btn btn-primary btn-md mt-4">Upload new product</a>
+                <a href="<?=url("product/create")?>" class="btn btn-primary btn-md mt-4">Upload new product</a>
         </div>
     </div>
     <ol class="breadcrumb mb-4">
@@ -24,7 +24,9 @@ include_components("includes.admin_header");
                 <thead>
                     <th>#</th>
                     <th>Image</th>
+                    <th>Category</th>
                     <th>Name</th>
+                    <th>Price</th>
                     <th>Status</th>
                     <th>Action</th>
                 </thead>

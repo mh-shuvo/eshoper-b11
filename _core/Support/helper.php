@@ -93,3 +93,31 @@ function getCurrentLoggedInAdminInfo($key="*"){
     }
     return False;
 }
+
+function getAbsoluteFilePath($path){
+    
+    if(str_starts_with($path,"http")){
+        return $path;
+    }
+
+    $path = base_path("public/".$path);
+    return $path;
+}
+
+function getPublicUrlOfFile($path){
+
+    if(str_starts_with($path,"http")){
+        return $path;
+    }
+
+    $path = URLROOT."/".$path;
+    return $path;
+}
+
+function deleteFile($path){
+    if(str_starts_with($path,"http")){
+        return true;
+    }
+    unlink(getAbsoluteFilePath($path));
+    return true;
+}

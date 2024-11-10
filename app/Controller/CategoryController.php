@@ -194,60 +194,60 @@ class CategoryController extends BaseController{
          }
 
 
-        //  if(!is_null($_FILES['image']['name'])){
-        //     $image_errors = "";
-        //     if($_FILES['image']['size'] > 2*MB){
-        //         $image_errors .= 'The category image should be less than 2MB.';
-        //     }
+         if(!empty($_FILES['image']['name'])){
+            $image_errors = "";
+            if($_FILES['image']['size'] > 2*MB){
+                $image_errors .= 'The category image should be less than 2MB.';
+            }
 
-        //     $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 
-        //     if(!in_array($ext,SUPPORTED_FILE_TYPES)){
-        //         $image_errors .= '<br>The category image is not supported.';
-        //     }
+            if(!in_array($ext,SUPPORTED_FILE_TYPES)){
+                $image_errors .= '<br>The category image is not supported.';
+            }
 
-        //     if($image_errors != null){
-        //         $errors['image_error'] = $image_errors;
-        //     }
+            if($image_errors != null){
+                $errors['image_error'] = $image_errors;
+            }
             
-        //  }
+         }
 
 
-        //  if(!empty($errors)){
-        //     session()->flash('validation_errors', $errors);
-        //     return redirect('category/edit/'.$data['id']);
-        //  }
+         if(!empty($errors)){
+            session()->flash('validation_errors', $errors);
+            return redirect('category/edit/'.$data['id']);
+         }
 
 
-        //  $file = $_FILES['image'];
-        //  $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-        //  $fileName = time().".".$ext;
-        //  $absoluteFilePath = UPLOAD_ROOT ."/category/";
+         $file = $_FILES['image'];
+         $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+         $fileName = time().".".$ext;
+         $absoluteFilePath = UPLOAD_ROOT ."/category/";
          
-        //  if(!is_dir($absoluteFilePath)){
-        //     mkdir($absoluteFilePath,777, true);
-        //  }
+         if(!is_dir($absoluteFilePath)){
+            mkdir($absoluteFilePath,777, true);
+         }
 
-        //  $absoluteFileName = $absoluteFilePath."".$fileName;
+         $absoluteFileName = $absoluteFilePath."".$fileName;
          
-        //  if(!move_uploaded_file($file['tmp_name'],$absoluteFileName)){
-        //     session()->flash('error','Something went wrong duing file upload.');
-        //     return redirect('category/create');
-        //  }
+         if(!move_uploaded_file($file['tmp_name'],$absoluteFileName)){
+            session()->flash('error','Something went wrong duing file upload.');
+            return redirect('category/create');
+         }
 
-        //  $data['image'] = "/upload/category/".$fileName;
+         $data['image'] = "/upload/category/".$fileName;
          
          $categoryModel = new Category();
          $previousData = $categoryModel->getCategoryById($data["id"]);
-        //  $hasStored = $categoryModel->update($data);
+         $hasStored = $categoryModel->update($data);
 
-        //  if(is_string($hasStored)){
-        //     unlink($absoluteFileName);
-        //     session()->flash('error','Something went wrong. Error: '.$hasStored);
-        //     return redirect('category/edit/'.$data['id']);
-        //  }
+         if(is_string($hasStored)){
+            unlink($absoluteFileName);
+            session()->flash('error','Something went wrong. Error: '.$hasStored);
+            return redirect('category/edit/'.$data['id']);
+         }
          session()->remove("old");
-         unlink(PROJECT_ROOT."/public/".$previousData->image);
+         deleteFile($previousData->image);
          session()->flash('success','The Category Successfully Updated.');
          return redirect('category');
          

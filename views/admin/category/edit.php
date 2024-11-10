@@ -31,22 +31,22 @@ $category = $data['category'];
                 <div class="form-group mb-3">
                     <label for="image">Image<sup>*</sup></label>
                     <input type="file" name="image" id="image" class="form-control">
-                    <span class="text-danger"><?=$errors['image_error'] ?? ""?></span>
-                    <img src="<?=$category->image?>" class="mt-2" alt="" style="height:100px;width:100px">
+                    <span class="text-danger"><?=$errors['image_error'] ?? ""?> <br></span>
+                    <img src="<?=getPublicUrlOfFile($category->image)?>" class="mt-2" alt="" style="height:100px;width:100px">
                 </div>
                 <div class="form-group mb-3">
                     <label for="is_featured">Show as Featured?<sup>*</sup></label>
                     <select name="is_featured" id="is_featured" class="form-control">
-                        <option value="1"<?= isset($old['is_featured']) && $old['is_featured'] == true ?"selected":"" ?>>Yes</option>
-                        <option value="0" <?= isset($old['is_featured']) && $old['is_featured'] == false ?"selected":"" ?>>No</option>
+                        <option value="1"<?= (isset($old['is_featured']) && $old['is_featured'] == true) || $category->is_featured == true ?"selected":"" ?>>Yes</option>
+                        <option value="0" <?= (isset($old['is_featured']) && $old['is_featured'] == false) || $category->is_featured == false ?"selected":"" ?>>No</option>
                     </select>
                     <span class="text-danger"><?=$errors['is_featured_error'] ?? ""?></span>
                 </div>
                 <div class="form-group mb-3">
                     <label for="status">Status<sup>*</sup></label>
                     <select name="status" id="status" class="form-control">
-                        <option value="ACTIVE" <?= isset($old['status']) && $old['status'] == "ACTIVE" ?"selected":"" ?>>ACTIVE</option>
-                        <option value="INACTIVE" <?= isset($old['status']) && $old['status'] == "INACTIVE" ?"selected":"" ?>>INACTIVE</option>
+                        <option value="ACTIVE" <?= (isset($old['status']) && $old['status'] == "ACTIVE") || $category->status == "ACTIVE" ?"selected":"" ?>>ACTIVE</option>
+                        <option value="INACTIVE" <?= (isset($old['status']) && $old['status'] == "INACTIVE") || $category->status == "INACTIVE" ?"selected":"" ?>>INACTIVE</option>
                     </select>
                     <span class="text-danger"><?=$errors['status_error'] ?? ""?></span>
                 </div>

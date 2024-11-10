@@ -24,6 +24,7 @@
         <script src="<?=asset("admin_assets/js/scripts.js")?>"></script>
         <script>
             const BASEPATH = document.querySelector("meta[name='BASEPATH']").getAttribute("content");
+            const BASECURRENCY = document.querySelector("meta[name='BASECURRENCY']").getAttribute("content");
             
             function logout(){
                 const form = document.querySelector("#LogoutForm");

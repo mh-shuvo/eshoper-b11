@@ -7,6 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <meta name="BASEPATH" content="<?=URLROOT?>"/>
+        <meta name="BASECURRENCY" content="<?=getConfig("app.currency","$")?>"/>
         <title>Dashboard - <?=getConfig('app.name',"E-Commerce")?></title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="<?=asset("admin_assets/css/styles.css")?>" rel="stylesheet" />

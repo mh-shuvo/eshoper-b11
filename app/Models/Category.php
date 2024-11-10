@@ -18,6 +18,18 @@ class Category extends Model{
         return $this->results();
     }
 
+    public function getAllActiveCategories(){
+        $sql = "SELECT * FROM {$this->table} WHERE `status`=:status ORDER BY `id` DESC;";
+        $this->query($sql);
+        $this->bind("status",TRUE,PDO::PARAM_BOOL);
+
+        if($this->getErrors()){
+            return "Something went wrong. The Error is: ".$this->getErrors();
+        }
+        
+        return $this->results();
+    }
+
     public function delete($id){
         $sql = "DELETE FROM {$this->table} WHERE `id` = :id;";
         $this->query($sql);
