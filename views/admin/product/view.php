@@ -21,33 +21,38 @@ $product = $data['product'];
         <div class="col-sm-8 offset-sm-2 border p-3">
             <form action="javascript:void(0)" method="post" enctype="multipart/form-data">
             <div class="form-group mb-3">
-                    <label for="category">Category</label>
+                    <label for="category" class="fw-bold">Category</label>
                     <p> <?=$product->category_name?> </p>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="name">Name</label>
+                    <label for="name" class="fw-bold">Name</label>
                     <p> <?=$product->product_name?> </p>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="price">Price</label>
+                    <label for="price" class="fw-bold">Price</label>
                     <?=$product->price?>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="image">Image</label>
+                    <label for="image" class="fw-bold">Image</label><br>
                     <img src="<?=getPublicUrlOfFile($product->image)?>" alt="" style="height:100px;width:100px">
                     
                 </div>
                 <div class="form-group mb-3">
-                    <label for="is_featured">Show as Featured?<sup>*</sup></label>
+                    <label for="is_featured" class="fw-bold">Show as Featured? </label> <br>
+                    <span class="fw-bold text-<?=$product->is_featured ? "success":"danger"?>"><?=$product->is_featured ? "Yes":"No"?></span>
                    
                 </div>
                 <div class="form-group mb-3">
-                    <label for="status">Status</label>
+                    <label for="status" class="fw-bold">Status</label> <br>
+                    <span class="fw-bold text-<?=$product->status ="ACTIVE" ? "success":"danger"?>"><?=$product->status?></span>
                 </div>
 
                 
                 <div class="form-group mb-3">
-                    <label for="description">Description</label>
+                    <label for="description" class="fw-bold">Description</label> <br>
+                    <p>
+                        <?= $product->description ?>
+                    </p>
                 </div>
 
             </form>
