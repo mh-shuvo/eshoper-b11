@@ -90,6 +90,17 @@ class Category extends Model{
         return true;
     }
     public function update($data){
+        $sql = "UPDATE `{$this->table}` SET `name`=:name,`image`=:image,`status`=:status,`is_featured`=:is_featured WHERE `id`=:id";
+        $this->query($sql);
+        $this->bind("id",$data['id'],PDO::PARAM_STR);
+        $this->bind("name",$data['name'],PDO::PARAM_STR);
+        $this->bind("image",$data['image'],PDO::PARAM_STR);
+        $this->bind("status",$data['status'],PDO::PARAM_STR);
+        $this->bind("is_featured",$data['is_featured'],PDO::PARAM_STR);
+        $this->execute();
+        if($this->getErrors()){
+            return ''. $this->getErrors();
+        }
         return true;
     }
 

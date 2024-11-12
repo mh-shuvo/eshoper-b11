@@ -165,20 +165,6 @@ class CategoryController extends BaseController{
 
     }
     public function update(){
-        /**
-         * 1. Declare new variable as $data to store all post data.
-         * 2. Check validations for all of field except file
-         * 3. Check is there any file upload or not
-         * 4. If not upload then set error msg for file
-         * 5. if upload then check the supported type and size. 
-         * 6. if any errors then set the errors in session and get it from the view file to show the user
-         * 6 Upload file into the respected direcoty and keep the file name.
-         * 7. create new instance for Category model class
-         * 8 creaet new method to store category in category mode as store()
-         * 9. call store() from controller with data.
-         * 10. if success then show success msg otherwise show errors
-         */
-
          $data = $_POST;
          session()->flash('old',$_POST);
          $errors = [];
@@ -218,27 +204,33 @@ class CategoryController extends BaseController{
             return redirect('category/edit/'.$data['id']);
          }
 
-
-         $file = $_FILES['image'];
-         $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-         $fileName = time().".".$ext;
-         $absoluteFilePath = UPLOAD_ROOT ."/category/";
-         
-         if(!is_dir($absoluteFilePath)){
-            mkdir($absoluteFilePath,777, true);
-         }
-
-         $absoluteFileName = $absoluteFilePath."".$fileName;
-         
-         if(!move_uploaded_file($file['tmp_name'],$absoluteFileName)){
-            session()->flash('error','Something went wrong duing file upload.');
-            return redirect('category/create');
-         }
-
-         $data['image'] = "/upload/category/".$fileName;
-         
          $categoryModel = new Category();
          $previousData = $categoryModel->getCategoryById($data["id"]);
+
+         if(!empty($_FILES['image']['name'])){
+            $file = $_FILES['image'];
+            $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $fileName = time().".".$ext;
+            $absoluteFilePath = UPLOAD_ROOT ."/category/";
+            
+            if(!is_dir($absoluteFilePath)){
+                mkdir($absoluteFilePath,777, true);
+            }
+
+            $absoluteFileName = $absoluteFilePath."".$fileName;
+            
+            if(!move_uploaded_file($file['tmp_name'],$absoluteFileName)){
+                session()->flash('error','Something went wrong duing file upload.');
+                return redirect('category/edit/'.$data['id']);
+            }
+
+            $data['image'] = "/upload/category/".$fileName;
+         }else{
+            $data['image'] = $previousData->image;
+         }
+         
+         
+         
          $hasStored = $categoryModel->update($data);
 
          if(is_string($hasStored)){
@@ -246,8 +238,8 @@ class CategoryController extends BaseController{
             session()->flash('error','Something went wrong. Error: '.$hasStored);
             return redirect('category/edit/'.$data['id']);
          }
-         session()->remove("old");
          deleteFile($previousData->image);
+         session()->remove("old");
          session()->flash('success','The Category Successfully Updated.');
          return redirect('category');
          
