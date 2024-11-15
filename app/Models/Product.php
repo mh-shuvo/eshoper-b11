@@ -73,6 +73,45 @@ class Product extends Model{
         $result = $this->results(false);
 
         return $result ? $result : "No Product Found.";
+    }
+    public function getProductById(int $id){
+        $sql = "SELECT * FROM {$this->table} WHERE `id`=:id";
+        $this->query($sql);
+        $this->bind("id",$id,PDO::PARAM_INT);
+        if ($this->getErrors()) {
+            return "". $this->getErrors();
+        }
+        $result = $this->results(false);
+        return $result ? $result :"NO Data Found";
+    }
 
+    public function update($data){
+        $sql = "UPDATE {$this->table} SET `product_name`=:name,`category_id`=:cat_id,`price`=:price,`image`=:image,`is_featured`=:is_featured,`status`=:status,`description`=:desc WHERE `id`=:id";
+        $this->query($sql);
+        $this->bind("id",$data['id'],PDO::PARAM_INT);
+        $this->bind("name",$data['name'],PDO::PARAM_STR);
+        $this->bind('cat_id', $data['category'],PDO::PARAM_INT);
+        $this->bind('price', $data['price'],PDO::PARAM_STR);
+        $this->bind('image', $data['image'],PDO::PARAM_STR);
+        $this->bind('is_featured', $data['is_featured'],PDO::PARAM_STR);
+        $this->bind('status', $data['status'],PDO::PARAM_STR);
+        $this->bind('desc', $data['description'],PDO::PARAM_STR);
+        $this->execute();
+        if($this->getErrors()){
+            return ''. $this->getErrors();
+        }
+        return true;
+    }
+
+    public function delete($id){
+        $sql = "DELETE FROM {$this->table} WHERE `id` = :id;";
+        $this->query($sql);
+        $this->bind("id",$id,PDO::PARAM_INT);
+
+        if(!$this->execute()){
+            return $this->getErrors();
+        }
+
+        return true;
     }
 }

@@ -109,3 +109,6 @@ function renderPagination(pagination,targetElement = document.querySelector("#pa
         paginationContainer.appendChild(pageButton);
     }
 }
+
+
+

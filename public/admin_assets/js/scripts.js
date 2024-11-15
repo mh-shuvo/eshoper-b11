@@ -24,3 +24,13 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+
+$(document).ready(function() {
+    $('.text-editor').summernote(
+        {
+            placeholder:"Write your details",
+            height: 200
+        }
+    );
+});

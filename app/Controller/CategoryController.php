@@ -30,23 +30,39 @@ class CategoryController extends BaseController{
 
     public function delete($id){
         $category = new Category();
-        
-        $hasDeleted = $category->delete($id);
+
+        $hasUsed = $category->hasCategoryUsedInProduct($id);
+
         $responseCode = 200;
         $response = [
             "status"=> "success",
             "message"=> "Successfully Deleted",
         ];
 
-        if(is_string($hasDeleted)){
+        if(is_bool($hasUsed) && $hasUsed == false){
+            $previousCategory = $category->getCategoryById($id);   
+         
+            $hasDeleted = $category->delete($id);
+
+            if(is_string($hasDeleted)){
+                $response["status"] = "failed";
+                $response["message"] = $hasDeleted;
+                $responseCode = 500;
+            }else{
+                deleteFile($previousCategory->image);
+            }
+        }else{
             $response["status"] = "failed";
-            $response["message"] = $hasDeleted;
+            $response["message"] = "This category already used in somewhere.";
             $responseCode = 500;
         }
 
         http_response_code($responseCode);
 
         echo json_encode($response);
+
+
+        
     }
 
 
@@ -204,6 +220,7 @@ class CategoryController extends BaseController{
             return redirect('category/edit/'.$data['id']);
          }
 
+
          $categoryModel = new Category();
          $previousData = $categoryModel->getCategoryById($data["id"]);
 
@@ -242,8 +259,6 @@ class CategoryController extends BaseController{
          session()->remove("old");
          session()->flash('success','The Category Successfully Updated.');
          return redirect('category');
-         
-
     }
 
 

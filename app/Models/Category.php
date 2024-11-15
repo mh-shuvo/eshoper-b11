@@ -120,4 +120,16 @@ class Category extends Model{
         return $result ? $result : "No Category Found.";
 
     }
+
+    public function hasCategoryUsedInProduct($id){
+        $sql = "SELECT * FROM  `products` WHERE `category_id`=:id";
+        $this->query($sql);
+        $this->bind("id",$id,PDO::PARAM_INT);
+        $result = $this->results(false);
+
+        if ($this->getErrors()) {
+            return "". $this->getErrors(); 
+        }
+        return $result ? true:false;
+    }
 }
