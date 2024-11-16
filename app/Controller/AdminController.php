@@ -1,12 +1,10 @@
 <?php
 namespace App\Controller;
 use App\Controller\BaseController;
+use App\Middleware\AdminLoginMiddleware;
 class AdminController extends BaseController {
-
+    protected $middlewares = [AdminLoginMiddleware::class];
     public function index(){
-        if(!hasAdminLogin()){
-            throwException(sprintf("Un Authorized access. <a href='%s'>Login</a>",url("login")));
-        }
         return view("admin.index");
     }
 

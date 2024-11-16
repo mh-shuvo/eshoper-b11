@@ -6,7 +6,17 @@ use PDOException;
 
 class Product extends Model{
     protected $table = "products";
+    public function getAll(){
+        $sql = "SELECT * FROM {$this->table} WHERE `status`='ACTIVE' ORDER BY `id` DESC;";
+        $this->query($sql);
 
+        if($this->getErrors()){
+            return "Something went wrong. The Error is: ".$this->getErrors();
+        }
+        
+        $result = $this->results();
+        return $result ? $result : [];
+    }
 
     public function store($data){
         $sql = "INSERT INTO `{$this->table}` (`category_id`,`product_name`,`image`,`status`,`is_featured`,`price`,`description`) VALUES (:cate_id,:name,:image,:status,:is_featured,:price,:desc)";

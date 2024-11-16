@@ -68,11 +68,14 @@
                                 Category
                             </a>
 
-                            
-
                             <a class="nav-link" href="<?=url('product')?>">
                                 <div class="sb-nav-link-icon"><i class="fas fa-p"></i></div>
                                 Product
+                            </a>
+
+                            <a class="nav-link" href="<?=url('inventory')?>">
+                                <div class="sb-nav-link-icon"><i class="fas fa-inventory"></i></div>
+                                Inventory
                             </a>
                     </div>
                 </nav>
