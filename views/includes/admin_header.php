@@ -77,6 +77,12 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-inventory"></i></div>
                                 Inventory
                             </a>
+                            
+
+                            <a class="nav-link" href="<?=url('slider')?>">
+                                <div class="sb-nav-link-icon"><i class="fas fa-inventory"></i></div>
+                                Slider
+                            </a>
                     </div>
                 </nav>
             </div>

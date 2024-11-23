@@ -18,6 +18,23 @@ class Category extends Model{
         return $this->results();
     }
 
+    public function getFeaturedCategories($fields = "*",$limit=-1){
+        $sql = "SELECT {$fields} FROM {$this->table} WHERE `is_featured`=:is_featured ORDER BY `name` ASC";
+        if($limit != -1){
+            $sql.=" LIMIT {$limit}";
+        }
+        $this->query($sql);
+
+        $this->bind("is_featured",true,PDO::PARAM_BOOL);
+
+        if($this->getErrors()){
+            return "Something went wrong. The Error is: ".$this->getErrors();
+        }
+        
+        return $this->results();
+
+    }
+
     public function getAllActiveCategories(){
         $sql = "SELECT * FROM {$this->table} WHERE `status`=:status ORDER BY `id` DESC;";
         $this->query($sql);
